@@ -14,6 +14,6 @@ export const getPhotos = async (query, page) => {
   const { data } = await axios.get(
     `/search/photos?client_id=${API_KEY}&query=${query}&page=${page}`
   );
-  console.log(data);
+  //   console.log(data);
   return data;
 };
