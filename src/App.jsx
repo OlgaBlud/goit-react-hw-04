@@ -6,6 +6,7 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import Loader from "./components/Loader/Loader";
+import toast, { Toaster } from "react-hot-toast";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -38,12 +39,20 @@ function App() {
         if (!total) {
           setIsEmpty(true);
           console.log("no photos");
+          const notify = () =>
+            toast("No photos for such query!", {
+              duration: 3000,
+              position: "top-center",
+              style: { marginTop: 100 },
+              icon: "😢",
+            });
+          notify();
         }
         setImages((prevImages) => [...prevImages, ...results]);
         setNextPage(page < total_pages);
       } catch (error) {
         console.log(error);
-        setError(error);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
@@ -56,15 +65,15 @@ function App() {
   };
   // console.log(images);
   return (
-    <>
+    <div className="container">
       <SearchBar onSubmit={handleSubmit} />
 
       {images.length > 0 && <ImageGallery images={images} />}
       {nextPage && <LoadMoreBtn handleLoadMoreClick={handleLoadMoreClick} />}
-      {error && <ErrorMessage />}
+      {error && <ErrorMessage message={error} />}
       {loading && <Loader />}
-      {/* {isEmpty && <div>NO Photo</div>} */}
-    </>
+      {isEmpty && <Toaster />}
+    </div>
   );
 }
 
