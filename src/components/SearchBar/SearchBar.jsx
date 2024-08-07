@@ -7,7 +7,6 @@ const SearchBar = ({ onSubmit }) => {
     const form = event.target;
     const query = form.elements.query.value.trim();
     if (!query) {
-      console.log("enter search query");
       const notify = () =>
         toast("Enter search query!", {
           duration: 3000,

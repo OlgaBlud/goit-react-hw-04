@@ -46,12 +46,10 @@ function App() {
     setImgAlt("");
     setImgUrl("");
   }
-  console.log(imgAlt, imgUrl);
 
   // +++++++++++++++++++++++++++++++++++++++
 
   const handleSubmit = (searchValue) => {
-    // console.log("search", searchValue);
     setQuery(searchValue);
     setImages([]);
     setPage(1);
@@ -68,11 +66,10 @@ function App() {
       setError(null);
       try {
         const { results, total, total_pages } = await getPhotos(query, page);
-        console.log(results);
-        console.log(total, total_pages);
+
         if (!total) {
           setIsEmpty(true);
-          console.log("no photos");
+
           const notify = () =>
             toast("No photos for such query!", {
               duration: 3000,
@@ -85,7 +82,6 @@ function App() {
         setImages((prevImages) => [...prevImages, ...results]);
         setNextPage(page < total_pages);
       } catch (error) {
-        console.log(error);
         setError(error.message);
       } finally {
         setLoading(false);
@@ -97,7 +93,7 @@ function App() {
   const handleLoadMoreClick = () => {
     setPage((prevPage) => prevPage + 1);
   };
-  // console.log(images);
+
   return (
     <div className="container">
       <SearchBar onSubmit={handleSubmit} />

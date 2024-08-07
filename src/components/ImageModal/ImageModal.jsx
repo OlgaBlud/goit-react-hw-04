@@ -9,10 +9,11 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     overflow: "hidden",
+    padding: "0",
+    height: "max-content",
   },
 };
 
-// Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement("#root");
 
 const ImageModal = ({ isOpen, closeModal, imgUrl, imgAlt }) => {
@@ -20,20 +21,19 @@ const ImageModal = ({ isOpen, closeModal, imgUrl, imgAlt }) => {
     <Modal
       isOpen={isOpen}
       onRequestClose={closeModal}
-      //   className={css.modal}
-      //   overlayClassName={css.modalOverlay}
       style={
         (customStyles,
         {
           overlay: {
             backgroundColor: "rgba(19, 19, 19, 0.5)",
           },
+          content: {
+            padding: "0",
+            height: "max-content",
+          },
         })
       }
     >
-      {/* <button type="btn" onClick={() => closeModal()}>
-        Close
-      </button> */}
       <img className={css.imageModal} src={imgUrl} alt={imgAlt} />
     </Modal>
   );

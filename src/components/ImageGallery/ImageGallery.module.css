@@ -1,9 +1,4 @@
 .imageList {
-  /* display: grid;
-  grid-template-columns: repeat(1fr, 5);
-  grid-template-rows: repeat(1fr, 3);
-  grid-column-gap: 5px;
-  grid-row-gap: 5px; */
   display: flex;
   list-style-type: none;
   flex-wrap: wrap;
