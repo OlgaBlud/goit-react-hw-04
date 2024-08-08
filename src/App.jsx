@@ -17,37 +17,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
   const [nextPage, setNextPage] = useState(false);
-  // const [modal, setModal] = useState({
-  //   IsOpenModal: false,
-  //   imgUrl: "",
-  //   imgAlt: "",
-  // });
-  // const testUrl =
-  //   "https://images.unsplash.com/photo-1498579687545-d5a4fffb0a9e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDAyNzd8MHwxfHNlYXJjaHwzMXx8Y2F0fGVufDB8MHx8fDE3MjMwMzgxMTJ8MA&ixlib=rb-4.0.3&q=80&w=1080";
-  // function openModal() {
-  //   setModal({ ...modal, IsOpenModal: true, imgUrl: testUrl, imgAlt: "Test" });
-  //   console.log(modal);
-  // }
-  // console.log(modal);
-  // +++++++++++++++++++++++++++++++++++++++
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [imgUrl, setImgUrl] = useState("");
-  const [imgAlt, setImgAlt] = useState("");
-
-  function openModal(url, alt) {
-    setIsOpen(true);
-    setImgAlt(alt);
-    setImgUrl(url);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-    setImgAlt("");
-    setImgUrl("");
-  }
-
-  // +++++++++++++++++++++++++++++++++++++++
+  const [modal, setModal] = useState({ isOpen: false, imgUrl: "", imgAlt: "" });
 
   const handleSubmit = (searchValue) => {
     setQuery(searchValue);
@@ -93,6 +63,13 @@ function App() {
   const handleLoadMoreClick = () => {
     setPage((prevPage) => prevPage + 1);
   };
+  const openModal = (url, alt) => {
+    setModal({ ...modal, isOpen: true, imgUrl: url, imgAlt: alt });
+  };
+
+  const closeModal = () => {
+    setModal({ ...modal, isOpen: false, imgUrl: "", imgAlt: "" && "noAlt" });
+  };
 
   return (
     <div className="container">
@@ -106,9 +83,9 @@ function App() {
       {loading && <Loader />}
       {isEmpty && <Toaster />}
       <ImageModal
-        isOpen={isOpen}
-        imgUrl={imgUrl}
-        imgAlt={imgAlt}
+        isOpen={modal.isOpen}
+        imgUrl={modal.imgUrl}
+        imgAlt={modal.imgAlt}
         closeModal={closeModal}
       />
     </div>
